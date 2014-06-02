@@ -4,8 +4,14 @@ module.exports = {
 	"title": "Employee",
 	"type": "object",
 	"properties": {
-		"department": { "type": "string" },
-		"manager": { "type": "boolean" },
+		"department": {
+			"description": "the department the employee belongs to",
+			"type": "string"
+		},
+		"manager": {
+			"description": "is this person a manager (yes or no)",
+			"type": "boolean",
+		}
 	},
 	"required": ["department"]
 };

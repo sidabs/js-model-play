@@ -1,12 +1,8 @@
 module.exports = {
-	"id": "http://schema.ref.person",
-	"title": "Person",
+	"id": "http://request.ref.engineer",
+	"title": "Engineer Request",
 	"type": "object",
 	"properties": {
-		"id": {
-			"description": "the unique identifier for this item",
-			"type": "identifier"
-		},
 		"name": {
 			"descriptipon": "the name for the item",
 			"type": "string"
@@ -14,7 +10,11 @@ module.exports = {
 		"age": {
 			"description": "the age of the item",
 			"type": "integer"
+		},
+		"specialty": {
+			"description": "what programming language the engineer specializes in",
+			"type": "string"
 		}
 	},
-	"required": ["id", "name"]
-}
+	"required": ["specialty"]
+};

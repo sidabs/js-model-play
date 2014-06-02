@@ -4,7 +4,10 @@ module.exports = {
 	"title": "Engineer",
 	"type": "object",
 	"properties": {
-		"specialty": { "type": "string" }
+		"specialty": {
+			"description": "what programming language the engineer specializes in",
+			"type": "string"
+		}
 	},
 	"required": ["specialty"]
 };

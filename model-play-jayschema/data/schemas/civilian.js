@@ -4,7 +4,10 @@ module.exports = {
 	"title": "Civilian",
 	"type": "object",
 	"properties": {
-		"nickname": { "type": "string" }
+		"nickname": {
+			"description": "this is the nickname of the civilian",
+			"type": "string"
+		}
 	},
 	"required": ["nickname"]
 };

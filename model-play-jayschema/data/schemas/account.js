@@ -4,8 +4,14 @@ module.exports = {
 	"title": "Account",
 	"type": "object",
 	"properties": {
-		"commission": { "type": "number" },
-		"territory": { "type": "string" }
+		"commission": {
+			"description": "the commission percentage the account rep recieves",
+			"type": "number" 
+		},
+		"territory": {
+			"description": "the territory that the account rep is responsible for",
+			"type": "string"
+		}
 	},
 	"required": ["commission"]
 };

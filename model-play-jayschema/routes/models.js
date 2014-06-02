@@ -35,7 +35,7 @@ router.get('/civilian', function(req, res) {
 router.get('/employee', function(req, res) {
 	var employeeModel = require('../data/models/employee');
 
-	var sid = new employeeModel('Sid', 30, undefined, undefined);
+	var sid = new employeeModel('Sid', 30, 'Engineering', undefined);
 	sid.validate(function(result) {
 		res.json(result);
 	});
@@ -81,10 +81,9 @@ router.get('/department', function(req, res) {
 	var jaconi = new accountModel('Jaconi', 30, 'Account Rep', false, 50.55, "Global");
 	var accountEmployeeList = [hackett, dudas, jaconi];
 
-	var civilianModel = require('../data/models/civilian');
-	var jon = new civilianModel('Jon', 25, 'Johnny');
-
-	engineerEmployeeList.push(jon);
+	// var civilianModel = require('../data/models/civilian');
+	// var jon = new civilianModel('Jon', 25, 'Johnny');
+	// engineerEmployeeList.push(jon);
 
 
 	var departmentModel = require('../data/models/department');
@@ -104,8 +103,6 @@ router.get('/department', function(req, res) {
 			res.json(result);
 		}
 	});
-
-	// res.json({wtf:'mang'});
 
 	// var result = engineering.validate();
 	// res.json(result);
