@@ -1,4 +1,4 @@
-{
+module.exports = {
 	"id": "http://schema.ref.person",
 	"title": "Person",
 	"type": "object",

@@ -10,79 +10,106 @@ router.get('/', function(req, res) {
 	res.json({'model':'jay'});
 });
 
-router.get('/test', function(req, res) {
-	var JaySchema = require('jayschema');
-	var js = new JaySchema();
-	var instance = 65;
-	var schema = { 'type': 'integer', 'sdasdasd': 8 };
-
-	//synch
-	console.log('synchronous result: ', js.validate(instance, schema));
-
-	//a-synch
-	js.validate(instance, schema, function(errs) {
-		if(errs) {
-			console.log('asych errors: ', errs);
-		} else {
-			console.log('asynch validation ok');
-		}
-	});
-
-	res.json({
-		hello: 'world'
-	});
-});
-
-
-router.get('/person/schema', function(req, res) {
-	var personSchema = require('../models/personschema');
-	res.json(personSchema);
-});
-
 router.get('/person', function(req, res) {
-	var personClass = require('../models/person');
-	var person = new personClass();
+	var personModel = require('../data/models/person');
 
-	js.register(person.schema);
+	var sid = new personModel('Sid', 30);
+	sid.validate(function(result) {
+		res.json(result);
+	});
+	// var result = sid.validate();
+	// res.json(result);
+});
 
-	var missingSchemas = js.getMissingSchemas();
-	if(missingSchemas.length) {
-		res.json({error: 'Missing Schemas', detail: missingSchemas});
-	}
+router.get('/civilian', function(req, res) {
+	var civilianModel = require('../data/models/civilian');
 
-	var sid = new person.model('sid', 30);
-
-	js.validate(sid, person.schema, function(errs) {
-		if(errs) {
-			res.json({error: 'Errors Found', detail: errs});
-		} else {
-			res.json({error: 'Success', detail: sid});
-		}
-	})
+	var jon = new civilianModel('Jon', 25, 'Johnny');
+	jon.validate(function(result) {
+		res.json(result);
+	});
+	// var result = sid.validate();
+	// res.json(result);
 });
 
 router.get('/employee', function(req, res) {
-	var personClass = require('../models/person');
-	var employeeClass = require('../models/employee');
-	var employee = new employeeClass();
+	var employeeModel = require('../data/models/employee');
 
-	js.register(personClass.prototype.schema);
-	js.register(employee.schema);
-	
-	var missingSchemas = js.getMissingSchemas();
-	if(missingSchemas.length) {
-		res.json({error: 'Missing Schemas', detail: missingSchemas});
-	}
+	var sid = new employeeModel('Sid', 30, undefined, undefined);
+	sid.validate(function(result) {
+		res.json(result);
+	});
+	// var result = sid.validate();
+	// res.json(result);
+});
 
-	var sid = new employee.model('sid', 'what the hellsss', 'Engineering', null);
+router.get('/engineer', function(req, res) {
+	var engineerModel = require('../data/models/engineer');
 
-	js.validate(sid, employee.schema, function(errs) {
-		if(errs) {
-			res.json({error: 'Errors Found', detail: errs});
+	var sid = new engineerModel('Sid', 30, 'Engineering', undefined, 'Java');
+	sid.validate(function(result) {
+		res.json(result);
+	});
+	// var result = sid.validate();
+	// res.json(result);
+});
+
+router.get('/account', function(req, res) {
+	var accountModel = require('../data/models/account');
+
+	var sid = new accountModel('Sid', 30, 'Account Rep', undefined, 10.5, "New York");
+	sid.validate(function(result) {
+		res.json(result);
+	});
+	// var result = sid.validate();
+	// res.json(result);
+});
+
+router.get('/department', function(req, res) {
+	// var employeeModel = require('../data/models/employee');
+	// var sid = new employeeModel('Sid', 30, 'Technology', false);
+	// var tanner = new employeeModel('Tanner', 31, 'Account', true);
+
+	var engineerModel = require('../data/models/engineer');
+	var dabral = new engineerModel('Dabral', 30, 'Engineering', true, 'Java');
+	var maddern = new engineerModel('Maddern', 33, 'Engineering', true, 'Objective-C');
+	var engineerEmployeeList = [dabral, maddern];
+
+	var accountModel = require('../data/models/account');
+	var hackett = new accountModel('Hackett', 31, 'Account Rep', false, 10.5, "East Coast");
+	var dudas = new accountModel('Dudas', 36, 'Account Rep', false, 15.0, "West Coast");
+	var jaconi = new accountModel('Jaconi', 30, 'Account Rep', false, 50.55, "Global");
+	var accountEmployeeList = [hackett, dudas, jaconi];
+
+	var civilianModel = require('../data/models/civilian');
+	var jon = new civilianModel('Jon', 25, 'Johnny');
+
+	engineerEmployeeList.push(jon);
+
+
+	var departmentModel = require('../data/models/department');
+	var engineering = new departmentModel('Engineering', engineerEmployeeList);
+	engineering.validate(function(engineerResult) {
+		// res.json(engineeringResult);
+		var result = {};
+		result.engineering = engineerResult;
+
+		if(engineerResult.valid) {
+			var account = new departmentModel('Account', accountEmployeeList);
+			account.validate(function(accountResult) {
+				result.account = accountResult;
+				res.json(result);
+			});
 		} else {
-			res.json({error: 'Success', detail: sid});
+			res.json(result);
 		}
-	})
-})
+	});
+
+	// res.json({wtf:'mang'});
+
+	// var result = engineering.validate();
+	// res.json(result);
+});
+
 
 module.exports = router;
