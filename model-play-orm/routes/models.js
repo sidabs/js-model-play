@@ -11,6 +11,16 @@ router.get('/', function(req, res) {
 	res.json({'model':'orm'});
 });
 
+
+router.get('/test', function(req, res) {
+	var orm = require('orm');
+	// var Person = 
+});
+
+
+
+
+
 router.get('/person', function(req, res) {
 	// var personModel = require('../data/models/person');
 

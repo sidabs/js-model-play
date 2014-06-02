@@ -6,8 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var debug = require('debug');	//SDEDIT
 
-// var routes = require('./routes/index');
-// var users = require('./routes/users');
 var models = require('./routes/models');
 
 var app = express();
