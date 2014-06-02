@@ -21,29 +21,4 @@ function accountModel(name, age, department, manager, commission, territory) {
 };
 accountModel.prototype = Object.create(employeeModel.prototype);
 
-// accountModel.prototype.validate = function validate(callback) {
-// 	console.log('Account Model Validate()');
-
-// 	var self = this;
-
-// 	var jaySchema = require('jayschema');
-// 	var js = new jaySchema();
-// 	var personSchema = require('../schemas/person');
-// 	var employeeSchema = require('../schemas/employee');
-// 	var accountSchema = require('../schemas/account');
-
-// 	js.register(personSchema);
-// 	js.register(employeeSchema);
-// 	js.register(accountSchema);
-// 	var missingSchemas = js.getMissingSchemas();
-// 	if(missingSchemas.length) {
-// 		callback({valid: false, detail: 'Missing Schemas: ' + missingSchemas});
-// 	} else {
-// 		js.validate(self, accountSchema, function(errs) {
-// 			callback({ valid: errs ? false : true, detail: errs ? errs : self })
-// 		});
-// 		// return js.validate(self, personSchema);
-// 	}
-// };
-
 module.exports = accountModel;

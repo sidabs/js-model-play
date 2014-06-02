@@ -20,10 +20,10 @@ baseModel.prototype.validate = function validate(schema, supportingSchemaList, c
 	if(missingSchemas.length) {
 		callback({valid: false, detail: 'Missing Schemas: ' + missingSchemas});
 	} else {
-		js.validate(self, schema, function(errs) {
-			callback({ valid: errs ? false : true, detail: errs ? errs : self });	//synchronous with callback
+		js.validate(self, schema, function(errs) {	//callback is synchronous validation
+			callback({ valid: errs ? false : true, detail: errs ? errs : self });
 		});
-		// return js.validate(self, schema);	//asynchronous as return
+		// return js.validate(self, schema);		//return is synchronous validation
 	}
 };
 

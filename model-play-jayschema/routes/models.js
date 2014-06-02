@@ -14,10 +14,10 @@ router.get('/person', function(req, res) {
 	var personModel = require('../data/models/person');
 
 	var sid = new personModel('Sid', 30);
-	sid.validate(function(result) {
+	sid.validate(function(result) {		//callback is synchronous validation
 		res.json(result);
 	});
-	// var result = sid.validate();
+	// var result = sid.validate();		//return is asynchronous validation
 	// res.json(result);
 });
 
@@ -28,8 +28,6 @@ router.get('/civilian', function(req, res) {
 	jon.validate(function(result) {
 		res.json(result);
 	});
-	// var result = sid.validate();
-	// res.json(result);
 });
 
 router.get('/employee', function(req, res) {
@@ -39,8 +37,6 @@ router.get('/employee', function(req, res) {
 	sid.validate(function(result) {
 		res.json(result);
 	});
-	// var result = sid.validate();
-	// res.json(result);
 });
 
 router.get('/engineer', function(req, res) {
@@ -50,8 +46,6 @@ router.get('/engineer', function(req, res) {
 	sid.validate(function(result) {
 		res.json(result);
 	});
-	// var result = sid.validate();
-	// res.json(result);
 });
 
 router.get('/account', function(req, res) {
@@ -61,15 +55,9 @@ router.get('/account', function(req, res) {
 	sid.validate(function(result) {
 		res.json(result);
 	});
-	// var result = sid.validate();
-	// res.json(result);
 });
 
 router.get('/department', function(req, res) {
-	// var employeeModel = require('../data/models/employee');
-	// var sid = new employeeModel('Sid', 30, 'Technology', false);
-	// var tanner = new employeeModel('Tanner', 31, 'Account', true);
-
 	var engineerModel = require('../data/models/engineer');
 	var dabral = new engineerModel('Dabral', 30, 'Engineering', true, 'Java');
 	var maddern = new engineerModel('Maddern', 33, 'Engineering', true, 'Objective-C');
@@ -81,15 +69,14 @@ router.get('/department', function(req, res) {
 	var jaconi = new accountModel('Jaconi', 30, 'Account Rep', false, 50.55, "Global");
 	var accountEmployeeList = [hackett, dudas, jaconi];
 
+	// // negaitve test
 	// var civilianModel = require('../data/models/civilian');
 	// var jon = new civilianModel('Jon', 25, 'Johnny');
 	// engineerEmployeeList.push(jon);
 
-
 	var departmentModel = require('../data/models/department');
 	var engineering = new departmentModel('Engineering', engineerEmployeeList);
 	engineering.validate(function(engineerResult) {
-		// res.json(engineeringResult);
 		var result = {};
 		result.engineering = engineerResult;
 
@@ -103,9 +90,6 @@ router.get('/department', function(req, res) {
 			res.json(result);
 		}
 	});
-
-	// var result = engineering.validate();
-	// res.json(result);
 });
 
 
