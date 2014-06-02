@@ -13,31 +13,34 @@ router.get('/', function(req, res) {
 
 
 router.get('/test', function(req, res) {
-	// var personModel = require('../data/models/person');
-	// var params = {
-	// 	id: 'id_' + new Date().getTime(),
-	// 	name: 'Sid'
-	// };
-	// var sid = personModel.create(params);
-	// res.json(sid);
+
+// var model = require('model');
+// var User = function () {
+//   this.property('name', 'string', {required: false});
+//   this.property('password', 'string', {required: false});
+
+//   this.validatesLength('name', {is: 3});
+//   this.validatesPresent('password', {on: 'create'});
+//   this.validatesConfirmed('password', 'confirmPassword', {on: 'create'});
+// };
+// User = model.register('User', User);
+// // Name validation will pass, but password will fail
+// myUser = User.create({name: 'aaa'});
 
 
+// res.json({user: myUser, valid: myUser.isValid()});
 
-	var model = require('model');
 
-	function person() {
-		this.property('id', 'string', { required: true });
-		this.property('name', 'string', { required: true });
-		this.property('age', 'int', { required: false });
-
-		// this.validatesPresent('id');
-		// this.validatesWithFunction('id', function(val) {
-		// 	return val.substring(0,2) == 'id_';
-		// });
+	var personModel = require('../data/models/person');
+	var params = {
+		// _id: 'id_' + new Date().getTime(),
+		name: 'Siddhartha'
 	};
-	person = model.register('Person', person);
+	var sid = personModel.create(params);
 
-	res.json(defaultJSON);
+	res.json({valid: sid.isValid(), errors: sid.isValid() ? null : sid.errors, person: sid});
+
+	// res.json(defaultJSON);
 });
 
 
