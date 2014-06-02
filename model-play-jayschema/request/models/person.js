@@ -1,7 +1,8 @@
 function personRequestModel(postData) {
-	this.name = postData.name;
-	if(postData.id) { this.id = postData.id; }
-	if(postData.age) { this.age = postData.age; }
+
+	for(propertyName in postData) {
+		this[propertyName] = postData[propertyName];
+	};
 
 	console.log(this);
 };

@@ -9,17 +9,26 @@ router.get('/', function(req, res) {
 	res.json({'request':'jay'});
 });
 
-router.post('/person', function(req, res) {
+router.post('/person/create', function(req, res) {
 	var personRequestModel = require('../request/models/person');
 
-	var sid = new personRequestModel(req.body);
+	var sidRequest = new personRequestModel(req.body);
 	// var sid = new personRequestModel({
 	// 	"name":		"Peter Parker",
 	// 	"age":		50
 	// });
 
-	sid.validate(function(result) {
-		res.json(result);
+	sidRequest.validate(function(requestValidation) {
+		// res.json(result);
+
+		var personModel = require('../data/models/person');
+		var sid = new personModel(sidRequest.name, sidRequest.age);
+		sid.validate(function(modelValidation) {
+			res.json({
+				request: requestValidation,
+				model: modelValidation
+			});
+		});
 	});
 	// res.json({'request':'person'});
 });
