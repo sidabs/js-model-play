@@ -1,6 +1,6 @@
 module.exports = {
-	"id": "http://request.ref.engineer",
-	"title": "Engineer Request",
+	"id": "http://request.ref.person",
+	"title": "Person",
 	"type": "object",
 	"properties": {
 		"name": {
@@ -10,11 +10,7 @@ module.exports = {
 		"age": {
 			"description": "the age of the item",
 			"type": "integer"
-		},
-		"specialty": {
-			"description": "what programming language the engineer specializes in",
-			"type": "string"
 		}
 	},
 	"required": ["name"]
-};
+}
