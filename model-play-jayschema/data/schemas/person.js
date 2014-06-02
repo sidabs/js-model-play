@@ -5,7 +5,8 @@ module.exports = {
 	"properties": {
 		"id": {
 			"description": "the unique identifier for this item",
-			"type": "identifier"
+			"type": "string",
+			"format": "identifier"
 		},
 		"name": {
 			"descriptipon": "the name for the item",

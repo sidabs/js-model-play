@@ -1,5 +1,6 @@
 function personModel(name, age) {
-	this.id = 'idssss_' + new Date().getTime();
+	this.id = 'id_' + new Date().getTime();
+	// this.id = 'sd@sd.com';
 	this.name = name;
 	if(age) { this.age = age; }
 	console.log('Person Model Constructor: (%s, %s, %s)', 
