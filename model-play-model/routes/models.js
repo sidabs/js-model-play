@@ -13,117 +13,137 @@ router.get('/', function(req, res) {
 
 
 router.get('/test', function(req, res) {
-	var orm = require('model');
-	// var Person = 
-});
-
-
-
-
-
-router.get('/person', function(req, res) {
 	// var personModel = require('../data/models/person');
-
-	// var sid = new personModel('Sid', 30);
-	// sid.validate(function(result) {
-	// 	res.json(result);
-	// });
-	// // var result = sid.validate();
-	// // res.json(result);
-	res.json(defaultJSON);
-});
-
-router.get('/civilian', function(req, res) {
-	// var civilianModel = require('../data/models/civilian');
-
-	// var jon = new civilianModel('Jon', 25, 'Johnny');
-	// jon.validate(function(result) {
-	// 	res.json(result);
-	// });
-	// // var result = sid.validate();
-	// // res.json(result);
-	res.json(defaultJSON);
-});
-
-router.get('/employee', function(req, res) {
-	// var employeeModel = require('../data/models/employee');
-
-	// var sid = new employeeModel('Sid', 30, 'Engineering', undefined);
-	// sid.validate(function(result) {
-	// 	res.json(result);
-	// });
-	// // var result = sid.validate();
-	// // res.json(result);
-	res.json(defaultJSON);
-});
-
-router.get('/engineer', function(req, res) {
-	// var engineerModel = require('../data/models/engineer');
-
-	// var sid = new engineerModel('Sid', 30, 'Engineering', undefined, 'Java');
-	// sid.validate(function(result) {
-	// 	res.json(result);
-	// });
-	// // var result = sid.validate();
-	// // res.json(result);
-	res.json(defaultJSON);
-});
-
-router.get('/account', function(req, res) {
-	// var accountModel = require('../data/models/account');
-
-	// var sid = new accountModel('Sid', 30, 'Account Rep', undefined, 10.5, "New York");
-	// sid.validate(function(result) {
-	// 	res.json(result);
-	// });
-	// // var result = sid.validate();
-	// // res.json(result);
-	res.json(defaultJSON);
-});
-
-router.get('/department', function(req, res) {
-	// // var employeeModel = require('../data/models/employee');
-	// // var sid = new employeeModel('Sid', 30, 'Technology', false);
-	// // var tanner = new employeeModel('Tanner', 31, 'Account', true);
-
-	// var engineerModel = require('../data/models/engineer');
-	// var dabral = new engineerModel('Dabral', 30, 'Engineering', true, 'Java');
-	// var maddern = new engineerModel('Maddern', 33, 'Engineering', true, 'Objective-C');
-	// var engineerEmployeeList = [dabral, maddern];
-
-	// var accountModel = require('../data/models/account');
-	// var hackett = new accountModel('Hackett', 31, 'Account Rep', false, 10.5, "East Coast");
-	// var dudas = new accountModel('Dudas', 36, 'Account Rep', false, 15.0, "West Coast");
-	// var jaconi = new accountModel('Jaconi', 30, 'Account Rep', false, 50.55, "Global");
-	// var accountEmployeeList = [hackett, dudas, jaconi];
-
-	// // var civilianModel = require('../data/models/civilian');
-	// // var jon = new civilianModel('Jon', 25, 'Johnny');
-	// // engineerEmployeeList.push(jon);
+	// var params = {
+	// 	id: 'id_' + new Date().getTime(),
+	// 	name: 'Sid'
+	// };
+	// var sid = personModel.create(params);
+	// res.json(sid);
 
 
-	// var departmentModel = require('../data/models/department');
-	// var engineering = new departmentModel('Engineering', engineerEmployeeList);
-	// engineering.validate(function(engineerResult) {
-	// 	// res.json(engineeringResult);
-	// 	var result = {};
-	// 	result.engineering = engineerResult;
 
-	// 	if(engineerResult.valid) {
-	// 		var account = new departmentModel('Account', accountEmployeeList);
-	// 		account.validate(function(accountResult) {
-	// 			result.account = accountResult;
-	// 			res.json(result);
-	// 		});
-	// 	} else {
-	// 		res.json(result);
-	// 	}
-	// });
+	var model = require('model');
 
-	// // var result = engineering.validate();
-	// // res.json(result);
+	function person() {
+		this.property('id', 'string', { required: true });
+		this.property('name', 'string', { required: true });
+		this.property('age', 'int', { required: false });
+
+		// this.validatesPresent('id');
+		// this.validatesWithFunction('id', function(val) {
+		// 	return val.substring(0,2) == 'id_';
+		// });
+	};
+	person = model.register('Person', person);
+
 	res.json(defaultJSON);
 });
 
 
 module.exports = router;
+
+
+// router.get('/person', function(req, res) {
+// 	// var personModel = require('../data/models/person');
+
+// 	// var sid = new personModel('Sid', 30);
+// 	// sid.validate(function(result) {
+// 	// 	res.json(result);
+// 	// });
+// 	// // var result = sid.validate();
+// 	// // res.json(result);
+// 	res.json(defaultJSON);
+// });
+
+// router.get('/civilian', function(req, res) {
+// 	// var civilianModel = require('../data/models/civilian');
+
+// 	// var jon = new civilianModel('Jon', 25, 'Johnny');
+// 	// jon.validate(function(result) {
+// 	// 	res.json(result);
+// 	// });
+// 	// // var result = sid.validate();
+// 	// // res.json(result);
+// 	res.json(defaultJSON);
+// });
+
+// router.get('/employee', function(req, res) {
+// 	// var employeeModel = require('../data/models/employee');
+
+// 	// var sid = new employeeModel('Sid', 30, 'Engineering', undefined);
+// 	// sid.validate(function(result) {
+// 	// 	res.json(result);
+// 	// });
+// 	// // var result = sid.validate();
+// 	// // res.json(result);
+// 	res.json(defaultJSON);
+// });
+
+// router.get('/engineer', function(req, res) {
+// 	// var engineerModel = require('../data/models/engineer');
+
+// 	// var sid = new engineerModel('Sid', 30, 'Engineering', undefined, 'Java');
+// 	// sid.validate(function(result) {
+// 	// 	res.json(result);
+// 	// });
+// 	// // var result = sid.validate();
+// 	// // res.json(result);
+// 	res.json(defaultJSON);
+// });
+
+// router.get('/account', function(req, res) {
+// 	// var accountModel = require('../data/models/account');
+
+// 	// var sid = new accountModel('Sid', 30, 'Account Rep', undefined, 10.5, "New York");
+// 	// sid.validate(function(result) {
+// 	// 	res.json(result);
+// 	// });
+// 	// // var result = sid.validate();
+// 	// // res.json(result);
+// 	res.json(defaultJSON);
+// });
+
+// router.get('/department', function(req, res) {
+// 	// // var employeeModel = require('../data/models/employee');
+// 	// // var sid = new employeeModel('Sid', 30, 'Technology', false);
+// 	// // var tanner = new employeeModel('Tanner', 31, 'Account', true);
+
+// 	// var engineerModel = require('../data/models/engineer');
+// 	// var dabral = new engineerModel('Dabral', 30, 'Engineering', true, 'Java');
+// 	// var maddern = new engineerModel('Maddern', 33, 'Engineering', true, 'Objective-C');
+// 	// var engineerEmployeeList = [dabral, maddern];
+
+// 	// var accountModel = require('../data/models/account');
+// 	// var hackett = new accountModel('Hackett', 31, 'Account Rep', false, 10.5, "East Coast");
+// 	// var dudas = new accountModel('Dudas', 36, 'Account Rep', false, 15.0, "West Coast");
+// 	// var jaconi = new accountModel('Jaconi', 30, 'Account Rep', false, 50.55, "Global");
+// 	// var accountEmployeeList = [hackett, dudas, jaconi];
+
+// 	// // var civilianModel = require('../data/models/civilian');
+// 	// // var jon = new civilianModel('Jon', 25, 'Johnny');
+// 	// // engineerEmployeeList.push(jon);
+
+
+// 	// var departmentModel = require('../data/models/department');
+// 	// var engineering = new departmentModel('Engineering', engineerEmployeeList);
+// 	// engineering.validate(function(engineerResult) {
+// 	// 	// res.json(engineeringResult);
+// 	// 	var result = {};
+// 	// 	result.engineering = engineerResult;
+
+// 	// 	if(engineerResult.valid) {
+// 	// 		var account = new departmentModel('Account', accountEmployeeList);
+// 	// 		account.validate(function(accountResult) {
+// 	// 			result.account = accountResult;
+// 	// 			res.json(result);
+// 	// 		});
+// 	// 	} else {
+// 	// 		res.json(result);
+// 	// 	}
+// 	// });
+
+// 	// // var result = engineering.validate();
+// 	// // res.json(result);
+// 	res.json(defaultJSON);
+// });
