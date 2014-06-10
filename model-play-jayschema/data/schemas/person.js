@@ -2,6 +2,7 @@ module.exports = {
 	"id": "http://schema.ref.person",
 	"title": "Person",
 	"type": "object",
+	"additionalProperties": false,
 	"properties": {
 		"id": {
 			"description": "the unique identifier for this item",

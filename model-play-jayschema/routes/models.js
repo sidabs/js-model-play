@@ -10,6 +10,36 @@ router.get('/', function(req, res) {
 	res.json({'model':'jay'});
 });
 
+router.get('/test', function(req, res) {
+	var self = this;
+
+	var jaySchema = require('jayschema');
+	var js = new jaySchema();
+
+	var personSchema = require('../data/schemas/person');
+	js.register(personSchema);
+
+	var sid = {
+		id: 'id_sd_' + new Date().getTime(),
+		name: 'sid',
+		age: 32,
+		gender: 'M',
+		medicalRecord: {
+			"healthy": true,
+			"lastCheckUp": "2014-01-01T00:00:00+04:00"
+		},
+		email: 'sd@test.com'
+	};
+	var missingSchemas = js.getMissingSchemas();
+	if(missingSchemas.length) {
+		res.json({valid: false, detail: 'Missing Schemas: ' + missingSchemas});
+	} else {
+		js.validate(sid, personSchema, function(errs) {
+			res.json({ valid: errs ? false : true, detail: errs ? errs : sid });
+		});
+	}
+})
+
 router.get('/address', function(req, res) {
 	var addressModel = require('../data/models/address');
 
@@ -28,6 +58,7 @@ router.get('/person', function(req, res) {
 	};
 
 	var sid = new personModel('Sid', 30, 'M', medicalRecord);
+	sid.email = 'me@sid.com';
 	sid.validate(function(result) {		//callback is synchronous validation
 		res.json(result);
 	});
@@ -95,7 +126,7 @@ router.get('/account', function(req, res) {
 		"healthy": true,
 		"lastCheckUp": "2014-01-01T00:00:00+04:00"		//date ex: 2014-01-01T00:00:00+04:00 / 2014-01-01T00:00:00-04:00 / 2014-01-01T00:00:00Z
 	};
-	var sid = new accountModel('Sid', 30, 'M', medicalRecord, 'Account Rep', false, 10.5, "New York");
+	var sid = new accountModel('Mike', 30, 'M', medicalRecord, 'Account Rep', false, 10.5, "New York");
 	sid.validate(function(result) {
 		res.json(result);
 	});
@@ -106,7 +137,7 @@ router.get('/department', function(req, res) {
 		"healthy": true,
 		"lastCheckUp": "2014-01-01T00:00:00+04:00"		//date ex: 2014-01-01T00:00:00+04:00 / 2014-01-01T00:00:00-04:00 / 2014-01-01T00:00:00Z
 	};
-	
+
 	var engineerModel = require('../data/models/engineer');
 	var dabral = new engineerModel('Dabral', 30, 'M', medicalRecord, 'Engineering', false, 'Java');
 	var maddern = new engineerModel('Maddern', 33, 'M', medicalRecord, 'Engineering', false, 'Objective-C');
