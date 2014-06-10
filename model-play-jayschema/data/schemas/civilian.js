@@ -7,7 +7,18 @@ module.exports = {
 		"nickname": {
 			"description": "this is the nickname of the civilian",
 			"type": "string"
+		},
+		"address": {
+			"type": "object",
+			"allOf": [{ "$ref": "http://schema.ref.address" }]
+		},
+		"billingHistory": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"allOf": [{ "$ref": "http://schema.ref.address" }]
+			}
 		}
 	},
-	"required": ["nickname"]
+	"required": ["nickname", "address"]
 };

@@ -15,6 +15,27 @@ module.exports = {
 		"age": {
 			"description": "the age of the item",
 			"type": "integer"
+		},
+		"gender": {
+			"description": "the gender",
+			"type": "string",
+			"enum": ["M","F"]
+		},
+		"medicalRecord": {
+			"description": "this is the medical record for a person",
+			"type": "object",
+			"properties": {
+				"healthy": {
+					"description": "boolean flag indicating whether the person if healthy overall",
+					"type": "boolean"					
+				},
+				"lastCheckUp": {
+					"description": "this is the date of the persons last medical checkup",
+					"type": "string",
+					"format": "date-time"
+				},
+				"reuired": ["healthy", "lastCheckUp"]
+			}
 		}
 	},
 	"required": ["id", "name"]

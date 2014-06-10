@@ -10,21 +10,57 @@ router.get('/', function(req, res) {
 	res.json({'model':'jay'});
 });
 
+router.get('/address', function(req, res) {
+	var addressModel = require('../data/models/address');
+
+	var myAddress = new addressModel('100 main street', 'my city', 'CA', '12345');
+	myAddress.validate(function(result) {
+		res.json(result);
+	});
+});
+
 router.get('/person', function(req, res) {
 	var personModel = require('../data/models/person');
 
-	var sid = new personModel('Sid', 30);
+	var medicalRecord = {
+		"healthy": true,
+		"lastCheckUp": "2014-01-01T00:00:00+04:00"		//date ex: 2014-01-01T00:00:00+04:00 / 2014-01-01T00:00:00-04:00 / 2014-01-01T00:00:00Z
+	};
+
+	var sid = new personModel('Sid', 30, 'M', medicalRecord);
 	sid.validate(function(result) {		//callback is synchronous validation
 		res.json(result);
 	});
-	// var result = sid.validate();		//return is asynchronous validation
-	// res.json(result);
 });
 
 router.get('/civilian', function(req, res) {
 	var civilianModel = require('../data/models/civilian');
 
-	var jon = new civilianModel('Jon', 25, 'Johnny');
+	var address = {
+		'street': '1 Main Street',
+		'city': 'My City',
+		'state': 'California',
+		'zip': '12345'
+	};
+
+	var billingHistory = [{
+		'street': '2 Main Street',
+		'city': 'Your City',
+		'state': 'Florida',
+		'zip': '54321'
+	}, {
+		'street': '1 Main Street',
+		'city': 'My City',
+		'state': 'California',
+		'zip': '12345'
+	}];
+
+	var medicalRecord = {
+		"healthy": true,
+		"lastCheckUp": "2014-01-01T00:00:00+04:00"		//date ex: 2014-01-01T00:00:00+04:00 / 2014-01-01T00:00:00-04:00 / 2014-01-01T00:00:00Z
+	};
+
+	var jon = new civilianModel('Jon', 25, 'M', medicalRecord, 'Johnny', address, billingHistory);
 	jon.validate(function(result) {
 		res.json(result);
 	});
@@ -33,7 +69,7 @@ router.get('/civilian', function(req, res) {
 router.get('/employee', function(req, res) {
 	var employeeModel = require('../data/models/employee');
 
-	var sid = new employeeModel('Sid', 30, 'Engineering', undefined);
+	var sid = new employeeModel('Sidney', 30, 'F', null, 'Engineering', false);
 	sid.validate(function(result) {
 		res.json(result);
 	});
@@ -42,7 +78,11 @@ router.get('/employee', function(req, res) {
 router.get('/engineer', function(req, res) {
 	var engineerModel = require('../data/models/engineer');
 
-	var sid = new engineerModel('Sid', 30, 'Engineering', undefined, 'Java');
+	var medicalRecord = {
+		"healthy": true,
+		"lastCheckUp": "2014-01-01T00:00:00+04:00"		//date ex: 2014-01-01T00:00:00+04:00 / 2014-01-01T00:00:00-04:00 / 2014-01-01T00:00:00Z
+	};
+	var sid = new engineerModel('Sid', 30, 'M', medicalRecord, 'Engineering', false, 'Java');
 	sid.validate(function(result) {
 		res.json(result);
 	});
@@ -51,22 +91,31 @@ router.get('/engineer', function(req, res) {
 router.get('/account', function(req, res) {
 	var accountModel = require('../data/models/account');
 
-	var sid = new accountModel('Sid', 30, 'Account Rep', undefined, 10.5, "New York");
+	var medicalRecord = {
+		"healthy": true,
+		"lastCheckUp": "2014-01-01T00:00:00+04:00"		//date ex: 2014-01-01T00:00:00+04:00 / 2014-01-01T00:00:00-04:00 / 2014-01-01T00:00:00Z
+	};
+	var sid = new accountModel('Sid', 30, 'M', medicalRecord, 'Account Rep', false, 10.5, "New York");
 	sid.validate(function(result) {
 		res.json(result);
 	});
 });
 
 router.get('/department', function(req, res) {
+	var medicalRecord = {
+		"healthy": true,
+		"lastCheckUp": "2014-01-01T00:00:00+04:00"		//date ex: 2014-01-01T00:00:00+04:00 / 2014-01-01T00:00:00-04:00 / 2014-01-01T00:00:00Z
+	};
+	
 	var engineerModel = require('../data/models/engineer');
-	var dabral = new engineerModel('Dabral', 30, 'Engineering', true, 'Java');
-	var maddern = new engineerModel('Maddern', 33, 'Engineering', true, 'Objective-C');
+	var dabral = new engineerModel('Dabral', 30, 'M', medicalRecord, 'Engineering', false, 'Java');
+	var maddern = new engineerModel('Maddern', 33, 'M', medicalRecord, 'Engineering', false, 'Objective-C');
 	var engineerEmployeeList = [dabral, maddern];
 
 	var accountModel = require('../data/models/account');
-	var hackett = new accountModel('Hackett', 31, 'Account Rep', false, 10.5, "East Coast");
-	var dudas = new accountModel('Dudas', 36, 'Account Rep', false, 15.0, "West Coast");
-	var jaconi = new accountModel('Jaconi', 30, 'Account Rep', false, 50.55, "Global");
+	var hackett = new accountModel('Hackett', 31, 'M', medicalRecord, 'Account Rep', false, 10.5, "East Coast");
+	var dudas = new accountModel('Dudas', 36, 'M', medicalRecord, 'Account Rep', false, 15.0, "West Coast");
+	var jaconi = new accountModel('Jaconi', 30, 'M', medicalRecord, 'Account Rep', false, 50.55, "Global");
 	var accountEmployeeList = [hackett, dudas, jaconi];
 
 	// // negaitve test

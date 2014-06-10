@@ -1,13 +1,10 @@
 var personModel = require('./person');
 
-function employeeModel(name, age, department, manager) {
-	personModel.call(this, name, age);
+function employeeModel(name, age, gender, medicalRecord, department, manager) {
+	personModel.call(this, name, age, gender, medicalRecord);
 	this.department = department;
 	if(manager) { this.manager = manager; }
-	console.log('Employee Model Constructor: (%s, %s, %s, %s, %s)', 
-		this.id, this.name, this.age, this.department, this.manager);
 
-	//
 	var personSchema = require('../schemas/person');
 	var supportingSchemaList = [personSchema];
 	
